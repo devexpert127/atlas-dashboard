@@ -5,3 +5,7 @@
 1. Liquidity Pools (Step, Serum, Orca, Raydium,....)
 1. NFT Gallery (View/manage NFTs on Solana)
 
+## How to install & run
+  yarn install
+  yarn start
+  
