@@ -7,5 +7,5 @@
 
 ## How to install & run
   yarn install
-  yarn start
   
+  yarn start
