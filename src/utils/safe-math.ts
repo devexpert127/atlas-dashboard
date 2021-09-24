@@ -32,8 +32,8 @@ export class TokenAmount {
     return vaule.toFormat(vaule.isInteger() ? 0 : this.decimals)
   }
 
-  fixed() {
-    return this.wei.dividedBy(this._decimals).toFixed(this.decimals)
+  fixed(decimals:number = this.decimals) {
+    return this.wei.dividedBy(this._decimals).toFixed(decimals)
   }
 
   isNullOrZero() {

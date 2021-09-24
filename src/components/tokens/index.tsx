@@ -19,6 +19,10 @@ const columns = [
       key: "icon",
       dataIndex: "icon",
       width:20,
+      render:(text:string,token:any) =>{
+
+        return (<img src={token.logoURI} width={20} height = {20}/>)
+    }
     },
 
     {
