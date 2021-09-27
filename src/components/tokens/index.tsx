@@ -24,10 +24,16 @@ const columns = [
         return (<img src={token.logoURI} width={20} height = {20}/>)
     }
     },
+    {
+      title: "Platform",
+      key: "platform",
+      dataIndex: "platform",
+      width: 150,
 
+    },
     {
         title: "Asset",
-        key: "asset",
+        key: "symbol",
         dataIndex: "symbol",
         width: 150,
 
@@ -66,7 +72,6 @@ export const TokenList = () => {
   useEffect(() => {
     if(connected){
       getTokenList(connection, wallet).then((tokens:any)=>{
-        console.log(tokens)
         setTokenList(tokens)
       })
       

@@ -20,21 +20,7 @@ export const ExchangeView = (props: {}) => {
       render: () => {
         return <TokenList />;
       },
-    },
-    {
-      key: "trade",
-      tab: <div style={tabStyle}>Trade</div>,
-      render: () => {
-        return <TradeEntry />;
-      },
-    },
-    {
-      key: "pool",
-      tab: <div style={tabStyle}>Pool</div>,
-      render: () => {
-        return <AddToLiquidity />;
-      },
-    },
+    }
   ];
 
   const [activeTab, setActiveTab] = useState(tabList[0].key);
@@ -45,15 +31,7 @@ export const ExchangeView = (props: {}) => {
         <div className="App-logo" />
       </div>
       <div className="App-Bar-right">
-        <Button type="text" size="large" style={{ color: "#2abdd2" }}>
-          <a
-            href={"https://dex.projectserum.com"}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Trade
-          </a>
-        </Button>
+
         <AccountInfo />
         {connected && (
           <Popover
