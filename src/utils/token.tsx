@@ -1,22 +1,20 @@
-import { AccountInfo, Connection, ParsedAccountData, PublicKey } from "@solana/web3.js";
-import {programIds} from "./ids"
+import { Connection } from "@solana/web3.js";
+import { programIds } from "./ids"
 import { TokenAmount } from "./safe-math";
-import {NATIVE_SOL, TOKENSBASE, LP_TOKENSBASE} from "./token_list"
+import { NATIVE_SOL } from "./token_list"
 import { TokenListProvider, TokenInfo } from '@solana/spl-token-registry';
-import { parseMappingData, parsePriceData, parseProductData } from '@pythnetwork/client'
-import { platform } from "os";
 
 const MainNetChainId = 101
 
-const getKnownTokens = async()=>{
+const getKnownTokens = async () => {
   let tokens = await (new TokenListProvider()).resolve()
   const tokenList = tokens.filterByChainId(MainNetChainId).getList();//
 
-  let tokenMap = tokenList.reduce((map:Map<string, TokenInfo>, item:TokenInfo) => {
+  let tokenMap = tokenList.reduce((map: Map<string, TokenInfo>, item: TokenInfo) => {
     map.set(item.address, item);
     return map;
-  },new Map());
-  
+  }, new Map());
+
   // tokenMap.forEach((value)=>{
   //   if(value.tags?.indexOf('lp-token')== -1){
   //     console.log(value.name, "-->", value.symbol)
@@ -25,15 +23,15 @@ const getKnownTokens = async()=>{
   // console.log(tokenMap)
   return tokenMap
 }
-var KnownTokens:Map<string, TokenInfo>  ;
+var KnownTokens: Map<string, TokenInfo>;
 
-getKnownTokens().then((tokens)=>{
+getKnownTokens().then((tokens) => {
   KnownTokens = tokens;
 })
 
-export const getTokenList:any = async(
-    conn:Connection, 
-    wallet:any
+export const getTokenList: any = async (
+  conn: Connection,
+  wallet: any
 ) => {
 
   // const publicKey = new PublicKey(ORACLE_MAPPING_PUBLIC_KEY)
@@ -50,7 +48,7 @@ export const getTokenList:any = async(
   //   })
   // })
 
-// const KnownTokens = Object.values(TOKENSBASE)
+  // const KnownTokens = Object.values(TOKENSBASE)
   // const KnownTokens = await getKnownTokens();
 
   let parsedTokenAccounts = await conn
@@ -59,18 +57,18 @@ export const getTokenList:any = async(
       {
         programId: programIds().token
       },
-    //   'confirmed'
+      //   'confirmed'
     )
   const tokenAccounts: any = {}
-  
-  const solBalance = await conn.getBalance(wallet.publicKey, /*'confirmed'*/ )
+
+  const solBalance = await conn.getBalance(wallet.publicKey, /*'confirmed'*/)
   tokenAccounts[NATIVE_SOL.mintAddress] = {
     tokenAccountAddress: wallet.publicKey.toBase58(),
     balance: new TokenAmount(solBalance, NATIVE_SOL.decimals).fixed(4),
     name: 'Solana',
     symbol: 'SOL',
     logoURI: KnownTokens.get('So11111111111111111111111111111111111111112')?.logoURI,
-    tags:[],
+    tags: [],
     platform: '',
   }
 
@@ -79,37 +77,35 @@ export const getTokenList:any = async(
     const tokenAccountPubkey = tokenAccountInfo.pubkey
     const tokenAccountAddress = tokenAccountPubkey.toBase58()
     const parsedInfo = tokenAccountInfo.account.data.parsed.info
-    if(parsedInfo.tokenAmount.amount == 0){
+    if (parsedInfo.tokenAmount.amount === 0) {
       return;
     }
     const mintAddress = parsedInfo.mint
     const balance = new TokenAmount(parsedInfo.tokenAmount.amount, parsedInfo.tokenAmount.decimals).fixed(4)
 
     tokenAccounts[mintAddress] = {
-        tokenAccountAddress,
-        balance,
-        platform : ''
-      }
+      tokenAccountAddress,
+      balance,
+      platform: ''
+    }
   })
 
-  Object.keys(tokenAccounts).forEach((mintAddress) =>{
+  Object.keys(tokenAccounts).forEach((mintAddress) => {
     const token = KnownTokens.get(mintAddress)
-    if(token)
-    {
+    if (token) {
       tokenAccounts[mintAddress].symbol = token.symbol
       tokenAccounts[mintAddress].logoURI = token.logoURI
       tokenAccounts[mintAddress].tags = token.tags
       tokenAccounts[mintAddress].name = token.name
-      if(token.tags && token.tags.indexOf('lp-token') >= 0)
-      {
+      if (token.tags && token.tags.indexOf('lp-token') >= 0) {
         tokenAccounts[mintAddress].platform = tokenAccounts[mintAddress].name.split(' ')[0]
       }
-      else{
+      else {
         tokenAccounts[mintAddress].platform = ''
       }
       console.log(tokenAccounts[mintAddress].platform)
     }
   })
   console.log(Object.values(tokenAccounts))
-  return Object.values(tokenAccounts).sort((a:any, b:any)=> a.platform.localeCompare(b.platform));
+  return Object.values(tokenAccounts).sort((a: any, b: any) => a.platform.localeCompare(b.platform));
 }

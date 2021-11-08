@@ -94,21 +94,21 @@ export const AddToLiquidity = () => {
       {pendingTx && <Spin indicator={antIcon} className="add-spinner" />}
     </Button>
   ) : (
-      <Dropdown.Button
-        className="add-button"
-        onClick={executeAction}
-        disabled={
-          connected &&
-          (pendingTx || !A.account || !B.account || A.account === B.account)
-        }
-        type="primary"
-        size="large"
-        overlay={<PoolConfigCard options={options} setOptions={setOptions} />}
-      >
-        {generateActionLabel(CREATE_POOL_LABEL, connected, env, A, B)}
-        {pendingTx && <Spin indicator={antIcon} className="add-spinner" />}
-      </Dropdown.Button>
-    );
+    <Dropdown.Button
+      className="add-button"
+      onClick={executeAction}
+      disabled={
+        connected &&
+        (pendingTx || !A.account || !B.account || A.account === B.account)
+      }
+      type="primary"
+      size="large"
+      overlay={<PoolConfigCard options={options} setOptions={setOptions} />}
+    >
+      {generateActionLabel(CREATE_POOL_LABEL, connected, env, A, B)}
+      {pendingTx && <Spin indicator={antIcon} className="add-spinner" />}
+    </Dropdown.Button>
+  );
 
   return (
     <div>

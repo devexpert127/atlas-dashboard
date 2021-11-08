@@ -37,9 +37,9 @@ interface ConnectionConfig {
 
 const ConnectionContext = React.createContext<ConnectionConfig>({
   endpoint: DEFAULT,
-  setEndpoint: () => {},
+  setEndpoint: () => { },
   slippage: DEFAULT_SLIPPAGE,
-  setSlippage: (val: number) => {},
+  setSlippage: (val: number) => { },
   connection: new Connection(DEFAULT, "recent"),
   sendConnection: new Connection(DEFAULT, "recent"),
   env: ENDPOINTS[0].name,
@@ -73,7 +73,7 @@ export function ConnectionProvider({ children = undefined as any }) {
   // is empty after opening its first time, preventing subsequent subscriptions from receiving responses.
   // This is a hack to prevent the list from every getting empty
   useEffect(() => {
-    const id = connection.onAccountChange(new Account().publicKey, () => {});
+    const id = connection.onAccountChange(new Account().publicKey, () => { });
     return () => {
       connection.removeAccountChangeListener(id);
     };
@@ -89,7 +89,7 @@ export function ConnectionProvider({ children = undefined as any }) {
   useEffect(() => {
     const id = sendConnection.onAccountChange(
       new Account().publicKey,
-      () => {}
+      () => { }
     );
     return () => {
       sendConnection.removeAccountChangeListener(id);

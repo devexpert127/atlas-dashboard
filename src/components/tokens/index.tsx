@@ -1,58 +1,50 @@
-import { Button, Spin, Table } from "antd";
+import { Table } from "antd";
 import React, { useState, useEffect } from "react";
-import {
-  useConnection,
-  useConnectionConfig,
-  useSlippageConfig,
-} from "../../utils/connection";
+import { useConnection } from "../../utils/connection";
 import { useWallet } from "../../utils/wallet";
 import { getTokenList } from "../../utils/token";
-import { LoadingOutlined } from "@ant-design/icons";
-import { swap, usePoolForBasket } from "../../utils/pools";
-import { notify } from "../../utils/notifications";
-import { useCurrencyPairState } from "../../utils/currencyPair";
 
 import "./trade.less";
 const columns = [
-    {
-      title: "",
-      key: "icon",
-      dataIndex: "icon",
-      width:20,
-      render:(text:string,token:any) =>{
+  {
+    title: "",
+    key: "icon",
+    dataIndex: "icon",
+    width: 20,
+    render: (text: string, token: any) => {
 
-        return (<img src={token.logoURI} width={20} height = {20}/>)
+      return (<img src={token.logoURI} alt='token logo' width={20} height={20} />)
     }
-    },
-    {
-      title: "Platform",
-      key: "platform",
-      dataIndex: "platform",
-      width: 150,
+  },
+  {
+    title: "Platform",
+    key: "platform",
+    dataIndex: "platform",
+    width: 150,
 
-    },
-    {
-        title: "Asset",
-        key: "symbol",
-        dataIndex: "symbol",
-        width: 150,
+  },
+  {
+    title: "Asset",
+    key: "symbol",
+    dataIndex: "symbol",
+    width: 150,
 
-    },
-    {
-        title: "Balance",
-        key: "balance",
-        dataIndex: "balance",
-    },
-    {
-        title: "Price",
-        key: "price",
-        dataIndex: "price",
-    },
-    {
-        title: "Value",
-        key: "value",
-        dataIndex: "value",
-    },
+  },
+  {
+    title: "Balance",
+    key: "balance",
+    dataIndex: "balance",
+  },
+  {
+    title: "Price",
+    key: "price",
+    dataIndex: "price",
+  },
+  {
+    title: "Value",
+    key: "value",
+    dataIndex: "value",
+  },
 ]
 
 // TODO:
@@ -63,25 +55,20 @@ const columns = [
 export const TokenList = () => {
   const { wallet, connected } = useWallet();
   const connection = useConnection();
-  const [pendingTx, setPendingTx] = useState(false);
-  const { A, B, setLastTypedAccount } = useCurrencyPairState();
-  const pool = usePoolForBasket([A?.mintAddress, B?.mintAddress]);
-  const { slippage } = useSlippageConfig();
-  const { env } = useConnectionConfig();
   const [token_list, setTokenList] = useState([]);
   useEffect(() => {
-    if(connected){
-      getTokenList(connection, wallet).then((tokens:any)=>{
+    if (connected) {
+      getTokenList(connection, wallet).then((tokens: any) => {
         setTokenList(tokens)
       })
-      
+
     }
   }, [setTokenList, connection, wallet, wallet.publicKey])
-  
+
   return (
     <>
       <div>
-        <Table columns={columns} dataSource={token_list} loading={false}/>
+        <Table columns={columns} dataSource={token_list} loading={false} />
       </div>
     </>
   );

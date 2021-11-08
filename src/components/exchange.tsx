@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import { Button, Card, Popover } from "antd";
-import { TradeEntry } from "./trade";
 import { TokenList } from "./tokens";
 
-import { AddToLiquidity } from "./pool/add";
 import { PoolAccounts } from "./pool/view";
 import { useWallet } from "../utils/wallet";
 import { AccountInfo } from "./accountInfo";
 import { Settings } from "./settings";
 import { SettingOutlined } from "@ant-design/icons";
 
-export const ExchangeView = (props: {}) => {
+export const ExchangeView = () => {
   const { connected, wallet } = useWallet();
   const tabStyle: React.CSSProperties = { width: 120 };
   const tabList = [
