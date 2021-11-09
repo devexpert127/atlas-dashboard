@@ -63,7 +63,7 @@ export const TokenList = () => {
       })
 
     }
-  }, [setTokenList, connection, wallet, wallet.publicKey])
+  }, [setTokenList, connection, wallet, wallet.publicKey, connected])
 
   return (
     <>

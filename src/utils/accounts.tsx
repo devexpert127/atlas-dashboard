@@ -291,7 +291,7 @@ export function AccountsProvider({ children = null as any }) {
         connection.removeProgramAccountChangeListener(tokenSubID);
       };
     }
-  }, [connection, connected, wallet?.publicKey]);
+  }, [connection, connected, wallet, selectUserAccounts]);
 
   return (
     <AccountsContext.Provider

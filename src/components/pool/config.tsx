@@ -28,7 +28,7 @@ const FeeInput = (props: {
           fontSize: 14,
           boxShadow: "none",
           borderColor: "transparent",
-          outline: "transpaernt",
+          outline: "transparent",
         }}
         onChange={(x: any) => {
           setValue(x);

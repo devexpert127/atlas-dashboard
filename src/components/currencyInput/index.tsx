@@ -48,7 +48,7 @@ export const CurrencyInput = (props: {
   // TODO: expand nested pool names ...?
 
   // group accounts by mint and use one with biggest balance
-  const grouppedUserAccounts = userAccounts
+  const groupedUserAccounts = userAccounts
     .sort((a, b) => {
       return b.info.amount.toNumber() - a.info.amount.toNumber();
     })
@@ -65,10 +65,10 @@ export const CurrencyInput = (props: {
       return map;
     }, new Map<string, { account: TokenAccount; pool: PoolInfo | undefined }[]>());
 
-  // TODO: group multple accounts of same time and select one with max amount
-  const renderAdditionalTokens = [...grouppedUserAccounts.keys()].map(
+  // TODO: group multiple accounts of same time and select one with max amount
+  const renderAdditionalTokens = [...groupedUserAccounts.keys()].map(
     (mint) => {
-      const list = grouppedUserAccounts.get(mint);
+      const list = groupedUserAccounts.get(mint);
       if (!list || list.length <= 0) {
         return undefined;
       }
@@ -151,7 +151,7 @@ export const CurrencyInput = (props: {
             fontSize: 20,
             boxShadow: "none",
             borderColor: "transparent",
-            outline: "transpaernt",
+            outline: "transparent",
           }}
           placeholder="0.00"
         />

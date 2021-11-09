@@ -474,7 +474,7 @@ export const usePoolForBasket = (mints: (string | undefined)[]) => {
         }
       }
     })();
-  }, [connection, ...sortedMints, pools]);
+  }, [connection, pools, sortedMints]);
 
   return pool;
 };

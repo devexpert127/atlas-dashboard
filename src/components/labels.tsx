@@ -4,7 +4,7 @@ import { getTokenName } from "../utils/utils";
 
 export const CREATE_POOL_LABEL = "Create Liquidity Pool";
 export const INSUFFICIENT_FUNDS_LABEL = (tokenName: string) => `Insufficient ${tokenName} funds`;
-export const POOL_NOT_AVAILABLE = (tokenA: string, tokenB: string) => `Pool ${tokenA}/${tokenB} doesn't exsist`;
+export const POOL_NOT_AVAILABLE = (tokenA: string, tokenB: string) => `Pool ${tokenA}/${tokenB} doesn't exist`;
 export const ADD_LIQUIDITY_LABEL = "Provide Liquidity";
 export const SWAP_LABEL = "Swap";
 export const CONNECT_LABEL = "Connect Wallet";
