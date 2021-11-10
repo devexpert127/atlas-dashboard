@@ -3,8 +3,10 @@ import React, { useState, useEffect } from "react";
 import { useConnection } from "../../utils/connection";
 import { useWallet } from "../../utils/wallet";
 import { getTokenList } from "../../utils/token";
+import { PythConnection, getPythProgramKeyForCluster } from "@pythnetwork/client";
 
 import "./trade.less";
+import { Cluster } from "@solana/web3.js";
 const columns = [
   {
     title: "",
@@ -51,6 +53,7 @@ const columns = [
 // Compute price breakdown with/without fee
 // Show slippage
 // Show fee information
+const SOLANA_CLUSTER_NAME: Cluster = 'mainnet-beta';
 
 export const TokenList = () => {
   const { wallet, connected } = useWallet();
@@ -59,7 +62,40 @@ export const TokenList = () => {
   useEffect(() => {
     if (connected) {
       getTokenList(connection, wallet).then((tokens: any) => {
-        setTokenList(tokens)
+        const pythConnection = new PythConnection(connection, getPythProgramKeyForCluster(SOLANA_CLUSTER_NAME))
+        pythConnection.onPriceChange((product, price) => {
+          // sample output:
+          // SRM/USD: $8.68725 ±$0.0131
+          // console.log(product);
+          const tokenName = product.description.substr(0, product.description.indexOf('/'));
+
+          let allSet = true;
+          tokens.forEach((token:any) => {
+            if (token.symbol === tokenName && price.price && !token.price) {
+              token.price = '$' + price.price.toFixed(2);
+              token.value = '$' + (price.price * token.balance).toFixed(2);
+
+              console.log(token.price);
+              console.log(token.value);
+              setTokenList(tokens);
+            }
+
+            if (!token.price) {
+              allSet = false;
+            }
+          });
+
+          if (allSet) {
+            pythConnection.stop();
+            setTokenList(tokens);
+          }
+
+        });
+
+        // setTokenList(tokens);
+
+        // Start listening for price change events.
+        pythConnection.start()
       })
 
     }
