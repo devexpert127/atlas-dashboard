@@ -1,3 +1,4 @@
+import { TokenAmount } from './safe-math'
 
 export interface Tokens {
   [key: string]: any
@@ -18,6 +19,7 @@ export interface TokenInfo {
   socials?: object
 
   tokenAccountAddress?: string
+  balance?: TokenAmount
   tags: string[]
 }
 
