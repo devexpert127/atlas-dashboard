@@ -7,6 +7,7 @@ import { PythConnection, getPythProgramKeyForCluster } from "@pythnetwork/client
 
 import "./trade.less";
 import { Cluster } from "@solana/web3.js";
+import { getPrice } from "../../utils/liquidity";
 const columns = [
   {
     title: "",
@@ -61,6 +62,9 @@ export const TokenList = () => {
   const [token_list, setTokenList] = useState([]);
   useEffect(() => {
     if (connected) {
+
+      
+
       getTokenList(connection, wallet).then((tokens: any) => {
         const pythConnection = new PythConnection(connection, getPythProgramKeyForCluster(SOLANA_CLUSTER_NAME))
         pythConnection.onPriceChange((product, price) => {
