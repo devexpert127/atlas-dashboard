@@ -7,33 +7,29 @@ import { useWallet } from "../utils/wallet";
 import { AccountInfo } from "./accountInfo";
 import { Settings } from "./settings";
 import { SettingOutlined } from "@ant-design/icons";
-import { useUserBalance } from '../dashboard-api/hooks/useUserBalance'
-import { WRAPPED_SOL_MINT } from "../utils/ids";
 import { useConnectionConfig } from '../dashboard-api/contexts/connection';
-import { useMarkets } from '../dashboard-api/contexts/market';
-import { formatUSD } from "../dashboard-api/utils/utils";
+// import { useMarkets } from '../dashboard-api/contexts/market';
 
 export const ExchangeView = () => {
   const { connected, wallet } = useWallet();
-  const { marketEmitter, midPriceInUSD } = useMarkets();
+  // const { marketEmitter, midPriceInUSD } = useMarkets();
   const { tokenMap } = useConnectionConfig();
-  const SOL = useUserBalance(WRAPPED_SOL_MINT);
 
   const tabStyle: React.CSSProperties = { width: 120 };
 
   useEffect(() => {
     const refreshTotal = () => {};
 
-    const dispose = marketEmitter.onMarket(() => {
-      refreshTotal();
-    });
+    // const dispose = marketEmitter.onMarket(() => {
+    //   refreshTotal();
+    // });
 
     refreshTotal();
 
     return () => {
-      dispose();
+      // dispose();
     };
-  }, [marketEmitter, midPriceInUSD, tokenMap]);
+  }, [  tokenMap]);
   
   const tabList = [
     {

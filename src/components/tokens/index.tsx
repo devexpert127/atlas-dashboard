@@ -5,10 +5,7 @@ import { useWallet } from "../../utils/wallet";
 import { getTokenList } from "../../utils/token";
 import "./trade.less";
 
-import { WRAPPED_SOL_MINT } from "../../utils/ids";
-import { useConnectionConfig } from '../../dashboard-api/contexts/connection'
-import { useMarkets } from '../../dashboard-api/contexts/market'
-import { useUserBalance } from '../../dashboard-api/hooks/useUserBalance'
+import { getPriceWithTokenAddress } from '../../dashboard-api/hooks/getPriceWithTokenAddress'
 
 const columns = [
   {
@@ -61,25 +58,17 @@ export const TokenList = () => {
   const { wallet, connected } = useWallet();
   const connection = useConnection();
   const [token_list, setTokenList] = useState([]);
-  const { marketEmitter, midPriceInUSD } = useMarkets();
-  const { tokenMap } = useConnectionConfig();
-
-  const SRM_ADDRESS = 'SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt';
-  const SRM = useUserBalance(WRAPPED_SOL_MINT.toBase58());
 
   useEffect(() => {
-    if (SRM.balanceInUSD > 0) {
-    }
-
     if (connected) {
-      getTokenList(connection, wallet).then((tokens: any) => {
-        tokens.forEach(async (token: any) => {
-          token.price = SRM.balanceInUSD;
-          let tokenStr:string = token.logoURI && token.logoURI.indexOf('mainnet') > 0 ? token.logoURI.substr(token.logoURI.indexOf('mainnet') + 8, 43) : token.tokenAccountAddress;
-          console.log(tokenStr);
-          console.log(midPriceInUSD(tokenStr));
-          // token.price = await getBalance(connection, token);
-        });
+      getTokenList(connection, wallet).then(async (tokens: any) => {
+        for await (const token of tokens){
+          let tokenStr:string = token.logoURI && token.logoURI.indexOf('mainnet') > 0 ?
+            token.logoURI.substr(token.logoURI.indexOf('mainnet') + 8, token.logoURI.indexOf('/logo.png') - token.logoURI.indexOf('mainnet') - 8) :
+            token.tokenAccountAddress;
+          token.price = (await getPriceWithTokenAddress(tokenStr));
+          token.value = token.price * token.balance;
+        }
 
         setTokenList(tokens);
       });
