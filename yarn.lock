@@ -2736,10 +2736,10 @@ asynckit@^0.4.0:
   resolved "https://registry.npmjs.org/asynckit/-/asynckit-0.4.0.tgz"
   integrity sha1-x57Zf380y48robyXkLzDZkdLS3k=
 
-atlas-dashboard-apis@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/atlas-dashboard-apis/-/atlas-dashboard-apis-1.0.2.tgz#f7a313b58fc1dd2bac4ab2bea5273b74a41a705a"
-  integrity sha512-bSK+TxmnhmCMnQinRhjyqXe1AGAVp4wrr2CSyXJ5ZDdBsdi/OEYBw2gPbZq7ZlGiL+baWxRf9t4nSIqUdaQJpA==
+atlas-dashboard-apis@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/atlas-dashboard-apis/-/atlas-dashboard-apis-1.0.7.tgz#7f6bb3da2c52a8dd0abe2e527c1b2e5935eb09c6"
+  integrity sha512-IkxJP3eoSTLYAO7RvxGlRsCApnkBiclbnwmKBuNoaA84qv2EHyZrVo0aRuhF0p9ltmYOlVpxEjJc83cjT2dk1A==
 
 atob@^2.1.2:
   version "2.1.2"
@@ -2773,6 +2773,13 @@ aws4@^1.8.0:
   version "1.10.1"
   resolved "https://registry.npmjs.org/aws4/-/aws4-1.10.1.tgz"
   integrity sha512-zg7Hz2k5lI8kb7U32998pRRFin7zJlkfezGJjUc2heaD4Pw2wObakCDVzkKztTm/Ln7eiVvYsjqak0Ed4LkMDA==
+
+axios@^0.24.0:
+  version "0.24.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.24.0.tgz#804e6fa1e4b9c5288501dd9dff56a7a0940d20d6"
+  integrity sha512-Q6cWsys88HoPgAaFAVUb0WpPk0O8iTeisR9IMqy9G8AbO4NlpVknrnQS03zzF9PGAWgO3cgletO3VjV/P7VztA==
+  dependencies:
+    follow-redirects "^1.14.4"
 
 axobject-query@^2.0.2:
   version "2.2.0"
@@ -5608,6 +5615,11 @@ follow-redirects@^1.0.0:
   version "1.13.0"
   resolved "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.13.0.tgz"
   integrity sha512-aq6gF1BEKje4a9i9+5jimNFIpq4Q1WiwBToeRK5NvZBd/TRsmW8BsJfOEGkr76TbOyPVD3OVDN910EcUNtRYEA==
+
+follow-redirects@^1.14.4:
+  version "1.14.5"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.5.tgz#f09a5848981d3c772b5392309778523f8d85c381"
+  integrity sha512-wtphSXy7d4/OR+MvIFbCVBDzZ5520qV8XfPklSN5QtxuMUJZ+b0Wnst1e1lCDocfzuCkHqj8k0FpZqO+UIaKNA==
 
 for-in@^0.1.3:
   version "0.1.8"

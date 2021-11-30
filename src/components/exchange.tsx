@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Card, Popover } from "antd";
 import { TokenList } from "./tokens";
 
@@ -7,30 +7,12 @@ import { useWallet } from "../utils/wallet";
 import { AccountInfo } from "./accountInfo";
 import { Settings } from "./settings";
 import { SettingOutlined } from "@ant-design/icons";
-import { useConnectionConfig } from '../dashboard-api/contexts/connection';
-// import { useMarkets } from '../dashboard-api/contexts/market';
 
 export const ExchangeView = () => {
   const { connected, wallet } = useWallet();
-  // const { marketEmitter, midPriceInUSD } = useMarkets();
-  const { tokenMap } = useConnectionConfig();
 
   const tabStyle: React.CSSProperties = { width: 120 };
 
-  useEffect(() => {
-    const refreshTotal = () => {};
-
-    // const dispose = marketEmitter.onMarket(() => {
-    //   refreshTotal();
-    // });
-
-    refreshTotal();
-
-    return () => {
-      // dispose();
-    };
-  }, [  tokenMap]);
-  
   const tabList = [
     {
       key: "tokens",

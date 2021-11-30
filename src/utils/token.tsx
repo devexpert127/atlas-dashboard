@@ -1,9 +1,8 @@
-import { Cluster, Connection } from "@solana/web3.js";
+import { Connection } from "@solana/web3.js";
 import { programIds } from "./ids"
 import { TokenAmount } from "./safe-math";
 import { NATIVE_SOL } from "./token_list"
 import { TokenListProvider, TokenInfo } from '@solana/spl-token-registry';
-import { getPythProgramKeyForCluster, PythConnection } from "@pythnetwork/client";
 
 const MainNetChainId = 101
 
@@ -34,24 +33,6 @@ export const getTokenList: any = async (
   conn: Connection,
   wallet: any
 ) => {
-
-  // const publicKey = new PublicKey(ORACLE_MAPPING_PUBLIC_KEY)
-
-  // conn.getAccountInfo(publicKey).then((accountInfo) => {
-  //   const { productAccountKeys } = parseMappingData(accountInfo?.data)
-  //   conn.getAccountInfo(productAccountKeys[productAccountKeys.length - 1]).then((accountInfo) => {
-  //     const { product, priceAccountKey } = parseProductData(accountInfo?.data)
-  //     conn.getAccountInfo(priceAccountKey).then((accountInfo) => {
-  //       const { price, confidence } = parsePriceData(accountInfo?.data)
-  //       console.log(`${product.symbol}: $${price} \xB1$${confidence}`)
-  //       // SRM/USD: $8.68725 ±$0.0131
-  //     })
-  //   })
-  // })
-
-  // const KnownTokens = Object.values(TOKENSBASE)
-  // const KnownTokens = await getKnownTokens();
-
   let parsedTokenAccounts = await conn
     .getParsedTokenAccountsByOwner(
       wallet.publicKey,
@@ -108,27 +89,3 @@ export const getTokenList: any = async (
   })
   return Object.values(tokenAccounts).sort((a: any, b: any) => a.platform.localeCompare(b.platform));
 }
-
-const SOLANA_CLUSTER_NAME: Cluster = 'mainnet-beta';
-
-export const getBalance: any = async (
-  connection: Connection,
-  token: any
-) => {
-  const pythConnection = new PythConnection(connection, getPythProgramKeyForCluster(SOLANA_CLUSTER_NAME))
-
-  let curPrice = 0;
-
-  pythConnection.onPriceChange((product, price) => {
-    const tokenName = product.description.substr(0, product.description.indexOf('/'));
-
-    if (token.symbol === tokenName && price.price) {
-      curPrice = price.price;
-      pythConnection.stop();
-    }
-  });
-
-  await pythConnection.start()
-  console.log(curPrice);
-  return curPrice;
-};

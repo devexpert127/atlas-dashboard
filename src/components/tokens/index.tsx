@@ -5,7 +5,7 @@ import { useWallet } from "../../utils/wallet";
 import { getTokenList } from "../../utils/token";
 import "./trade.less";
 
-import { getPriceWithTokenAddress } from '../../dashboard-api/hooks/getPriceWithTokenAddress'
+import { getPriceWithTokenAddress } from "atlas-dashboard-apis"
 
 const columns = [
   {
@@ -49,11 +49,6 @@ const columns = [
   },
 ]
 
-// TODO:
-// Compute price breakdown with/without fee
-// Show slippage
-// Show fee information
-
 export const TokenList = () => {
   const { wallet, connected } = useWallet();
   const connection = useConnection();
@@ -68,6 +63,14 @@ export const TokenList = () => {
             token.tokenAccountAddress;
           token.price = (await getPriceWithTokenAddress(tokenStr));
           token.value = token.price * token.balance;
+
+          // const acc = await cache.getAccount(connection, token.tokenAccountAddress);
+          // console.log(acc);
+
+          
+
+          if (token.price === 0)
+            console.log(token);
         }
 
         setTokenList(tokens);
