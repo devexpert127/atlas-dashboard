@@ -1,4 +1,3 @@
-
 import { initializeAccount } from '@project-serum/serum/lib/token-instructions';
 // @ts-ignore without ts ignore, yarn build will failed
 import { Token } from '@solana/spl-token';

@@ -1,7 +1,7 @@
 import { cloneDeep } from 'lodash'
 
 // @ts-ignore
-import SERUM_MARKETS from '@project-serum/serum/lib/markets.json'
+// import SERUM_MARKETS from '@project-serum/serum/lib/markets.json'
 
 import {
   LIQUIDITY_POOL_PROGRAM_ID_V2,
@@ -202,11 +202,11 @@ export function getAddressForWhat(address: string) {
 }
 
 export function isOfficalMarket(marketAddress: string) {
-  for (const market of SERUM_MARKETS) {
-    if (market.address === marketAddress && !market.deprecated) {
-      return true
-    }
-  }
+  // for (const market of SERUM_MARKETS) {
+  //   if (market.address === marketAddress && !market.deprecated) {
+  //     return true
+  //   }
+  // }
 
   for (const pool of LIQUIDITY_POOLS) {
     if (pool.serumMarket === marketAddress && pool.official === true) {

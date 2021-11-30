@@ -31,7 +31,7 @@ const mintCache = new Map<string, Promise<MintInfo>>();
 const pendingAccountCalls = new Map<string, Promise<TokenAccount>>();
 const accountsCache = new Map<string, TokenAccount>();
 
-const getAccountInfo = async (connection: Connection, pubKey: PublicKey) => {
+export const getAccountInfo = async (connection: Connection, pubKey: PublicKey) => {
   const info = await connection.getAccountInfo(pubKey);
   if (info === null) {
     throw new Error("Failed to find mint account");
@@ -52,7 +52,7 @@ const getAccountInfo = async (connection: Connection, pubKey: PublicKey) => {
   return details;
 };
 
-const getMintInfo = async (connection: Connection, pubKey: PublicKey) => {
+export const getMintInfo = async (connection: Connection, pubKey: PublicKey) => {
   const info = await connection.getAccountInfo(pubKey);
   if (info === null) {
     throw new Error("Failed to find mint account");
