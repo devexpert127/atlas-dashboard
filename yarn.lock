@@ -2736,10 +2736,10 @@ asynckit@^0.4.0:
   resolved "https://registry.npmjs.org/asynckit/-/asynckit-0.4.0.tgz"
   integrity sha1-x57Zf380y48robyXkLzDZkdLS3k=
 
-atlas-dashboard-apis@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/atlas-dashboard-apis/-/atlas-dashboard-apis-1.0.7.tgz#7f6bb3da2c52a8dd0abe2e527c1b2e5935eb09c6"
-  integrity sha512-IkxJP3eoSTLYAO7RvxGlRsCApnkBiclbnwmKBuNoaA84qv2EHyZrVo0aRuhF0p9ltmYOlVpxEjJc83cjT2dk1A==
+atlas-dashboard-apis@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/atlas-dashboard-apis/-/atlas-dashboard-apis-1.0.8.tgz#81bfb0772cdf49dc86023cbf74ad181f4027c1a2"
+  integrity sha512-dcH1iTZVQQst37yWp8pyCq5FNri/4LYZ0bZR+4Awg0JJGAt8uaMHdf+iduxzEARVlcGJ2DMOUoTwmZQWZXkp3g==
 
 atob@^2.1.2:
   version "2.1.2"
