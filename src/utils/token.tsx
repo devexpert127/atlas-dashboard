@@ -7,7 +7,7 @@ import { TokenListProvider, TokenInfo } from '@solana/spl-token-registry';
 const MainNetChainId = 101
 
 const getKnownTokens = async () => {
-  let tokens = await (new TokenListProvider()).resolve()
+  let tokens = await (new TokenListProvider()).resolve();
   const tokenList = tokens.filterByChainId(MainNetChainId).getList();//
 
   let tokenMap = tokenList.reduce((map: Map<string, TokenInfo>, item: TokenInfo) => {

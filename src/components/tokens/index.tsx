@@ -6,6 +6,7 @@ import { useWallet } from "../../utils/wallet";
 import { getTokenList } from "../../utils/token";
 import { 
   getPriceWithTokenAddress, 
+  getPriceWithSymbol,
   getLPPrice 
 } from "atlas-dashboard-apis"
 
@@ -73,11 +74,12 @@ export const TokenList = () => {
         
         for await (const token of singleTokens) {
           token.realPrice = (await getPriceWithTokenAddress(token.tokenStr));
+
+          if (token.realPrice === 0) {
+            token.realPrice = (await getPriceWithSymbol(token.symbol));
+          }
           token.price = '$' + token.realPrice.toFixed(6);
           prices[token.symbol] = token.realPrice;
-
-          if (token.price === 0)
-            console.log(token);
         }
 
         for await (const token of lpTokens) {
@@ -90,7 +92,11 @@ export const TokenList = () => {
           token.price = '$' + token.realPrice.toFixed(6);
         }
 
-        tokens.forEach((token: any) => token.value = '$' + (token.realPrice * token.balance).toFixed(6));
+        tokens.forEach((token: any) => {
+          // if (token.realPrice === 0)
+            console.log(token);
+          token.value = '$' + (token.realPrice * token.balance).toFixed(6);
+        });
         setTokenList(tokens);
       });
     }
