@@ -45,7 +45,7 @@ export const getTokenList: any = async (
 
   const solBalance = await conn.getBalance(wallet.publicKey, /*'confirmed'*/)
   tokenAccounts[NATIVE_SOL.mintAddress] = {
-    tokenAccountAddress: wallet.publicKey.toBase58(),
+    tokenAccountAddress: NATIVE_SOL.mintAddress,
     balance: new TokenAmount(solBalance, NATIVE_SOL.decimals).fixed(4),
     name: 'Solana',
     symbol: 'SOL',

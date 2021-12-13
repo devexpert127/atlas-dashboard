@@ -6,7 +6,7 @@ import { useUserAccounts, useMint, useCachedPool } from "../../utils/accounts";
 import "./styles.less";
 import { useConnectionConfig } from "../../utils/connection";
 import { PoolIcon, TokenIcon } from "../tokenIcon";
-import PopularTokens from "../../utils/token-list.json";
+import PopularTokens from "../../utils/solana.tokenlist.json";
 import { PublicKey } from "@solana/web3.js";
 import { PoolInfo, TokenAccount } from "../../models";
 
@@ -25,21 +25,21 @@ export const CurrencyInput = (props: {
 
   const { env } = useConnectionConfig();
 
-  const tokens = PopularTokens[env] as KnownToken[];
+  const tokens = PopularTokens['tokens'] as KnownToken[];
 
   const renderPopularTokens = tokens.map((item) => {
     return (
       <Option
-        key={item.mintAddress}
-        value={item.mintAddress}
-        title={item.mintAddress}
+        key={item.address}
+        value={item.address}
+        title={item.address}
       >
         <div
-          key={item.mintAddress}
+          key={item.address}
           style={{ display: "flex", alignItems: "center" }}
         >
-          <TokenIcon mintAddress={item.mintAddress} />
-          {item.tokenSymbol}
+          <TokenIcon mintAddress={item.address} />
+          {item.symbol}
         </div>
       </Option>
     );

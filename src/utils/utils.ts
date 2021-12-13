@@ -1,24 +1,25 @@
 import { useCallback, useState } from "react";
 import { MintInfo } from "@solana/spl-token";
 
-import PopularTokens from "./token-list.json";
+import PopularTokens from "./solana.tokenlist.json";
 import { ENV } from "./connection";
 import { PoolInfo, TokenAccount } from "./../models";
 
 export interface KnownToken {
-  tokenSymbol: string;
-  tokenName: string;
-  icon: string;
-  mintAddress: string;
+  symbol: string;
+  name: string;
+  logoURI: string;
+  address: string;
+  tags: string[];
   balance?: string;
   price?: string;
   value?: string;
 }
 
 const AddressToToken = Object.keys(PopularTokens).reduce((map, key) => {
-  const tokens = PopularTokens[key as ENV] as KnownToken[];
+  const tokens = PopularTokens['tokens'] as KnownToken[];
   const knownMints = tokens.reduce((map, item) => {
-    map.set(item.mintAddress, item);
+    map.set(item.address, item);
     return map;
   }, new Map<string, KnownToken>());
 
@@ -62,7 +63,7 @@ export function shortenAddress(address: string, chars = 4): string {
 }
 
 export function getTokenName(env: ENV, mintAddress: string): string {
-  const knownSymbol = AddressToToken.get(env)?.get(mintAddress)?.tokenSymbol;
+  const knownSymbol = AddressToToken.get(env)?.get(mintAddress)?.symbol;
   if (knownSymbol) {
     return knownSymbol;
   }
@@ -74,7 +75,7 @@ export function getTokenIcon(
   env: ENV,
   mintAddress: string
 ): string | undefined {
-  return AddressToToken.get(env)?.get(mintAddress)?.icon;
+  return AddressToToken.get(env)?.get(mintAddress)?.logoURI;
 }
 
 export function getPoolName(env: ENV, pool: PoolInfo) {

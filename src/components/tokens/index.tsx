@@ -63,7 +63,9 @@ export const TokenList = () => {
         let tokens = rawTokens.map((token: any) => {
           token.tokenStr = token.logoURI && token.logoURI.indexOf('mainnet') > 0 ?
             token.logoURI.substr(token.logoURI.indexOf('mainnet') + 8, token.logoURI.indexOf('/logo.png') - token.logoURI.indexOf('mainnet') - 8) :
-            token.tokenAccountAddress
+            token.tokenAccountAddress;
+          token.realPrice = 0;
+          token.price = '$' + token.realPrice.toFixed(6);
           return token;
         });
 
