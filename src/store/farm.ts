@@ -2,18 +2,18 @@ import { PublicKey } from '@solana/web3.js';
 import { cloneDeep } from 'lodash-es';
 import { actionTree, getterTree, mutationTree } from 'typed-vuex';
 
-import { FARMS, getAddressForWhat, getFarmByPoolId } from '@/utils/farms';
-import { STAKE_PROGRAM_ID, STAKE_PROGRAM_ID_V4, STAKE_PROGRAM_ID_V5 } from '@/utils/ids';
-import { ACCOUNT_LAYOUT, getBigNumber } from '@/utils/layouts';
-import logger from '@/utils/logger';
-import { lt, TokenAmount } from '@/utils/safe-math';
+import { FARMS, getAddressForWhat, getFarmByPoolId } from '../utils/farms';
+import { STAKE_PROGRAM_ID, STAKE_PROGRAM_ID_V4, STAKE_PROGRAM_ID_V5 } from '../utils/ids';
+import { ACCOUNT_LAYOUT, getBigNumber } from '../utils/layouts';
+import logger from '../utils/logger';
+import { lt, TokenAmount } from '../utils/safe-math';
 import {
   STAKE_INFO_LAYOUT, STAKE_INFO_LAYOUT_V4, USER_STAKE_INFO_ACCOUNT_LAYOUT,
   USER_STAKE_INFO_ACCOUNT_LAYOUT_V4, USER_STAKE_INFO_ACCOUNT_LAYOUT_V5
-} from '@/utils/stake';
+} from '../utils/stake';
 import {
   commitment, findAssociatedStakeInfoAddress, getFilteredProgramAccounts, getMultipleAccounts
-} from '@/utils/web3';
+} from '../utils/web3';
 
 const AUTO_REFRESH_TIME = 60
 
