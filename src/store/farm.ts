@@ -33,11 +33,11 @@ export const state = () => ({
 export const getters = getterTree(state, {})
 
 export const mutations = mutationTree(state, {
-  setInitialized(state) {
+  setInitialized(state: any) {
     state.initialized = true
   },
 
-  setLoading(state, loading: boolean) {
+  setLoading(state: any, loading: boolean) {
     if (loading) {
       state.countdown = AUTO_REFRESH_TIME
     }
@@ -49,23 +49,23 @@ export const mutations = mutationTree(state, {
     }
   },
 
-  setInfos(state, infos: object) {
+  setInfos(state: any, infos: object) {
     state.infos = cloneDeep(infos)
   },
 
-  setStakeAccounts(state, stakeAccounts) {
+  setStakeAccounts(state: any, stakeAccounts: any) {
     state.stakeAccounts = cloneDeep(stakeAccounts)
   },
 
-  setAuxiliaryStakeAccounts(state, auxiliaryStakeAccounts) {
+  setAuxiliaryStakeAccounts(state: any, auxiliaryStakeAccounts: any) {
     state.auxiliaryStakeAccounts = cloneDeep(auxiliaryStakeAccounts)
   },
 
-  setCountdown(state, countdown: number) {
+  setCountdown(state: any, countdown: number) {
     state.countdown = countdown
   },
 
-  setLastSubBlock(state, lastSubBlock: number) {
+  setLastSubBlock(state: any, lastSubBlock: number) {
     state.lastSubBlock = lastSubBlock
   }
 })
