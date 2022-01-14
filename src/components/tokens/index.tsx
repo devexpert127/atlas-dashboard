@@ -9,6 +9,7 @@ import {
   getPriceWithSymbol,
   getLPPrice 
 } from "atlas-dashboard-apis"
+import { work } from "../../store/farm";
 
 const columns = [
   {
@@ -59,6 +60,9 @@ export const TokenList = () => {
 
   useEffect(() => {
     if (connected) {
+      work();
+      // getStakeAccounts(connection, wallet);
+
       getTokenList(connection, wallet).then(async (rawTokens: any) => {
         let tokens = rawTokens.map((token: any) => {
           token.tokenStr = token.logoURI && token.logoURI.indexOf('mainnet') > 0 ?

@@ -2,7 +2,7 @@ import { initializeAccount } from '@project-serum/serum/lib/token-instructions';
 // @ts-ignore without ts ignore, yarn build will failed
 import { Token } from '@solana/spl-token';
 import {
-  Account, AccountInfo, Commitment, Connection, PublicKey, SystemProgram, Transaction,
+  Account, AccountInfo, Commitment, Connection, Keypair, PublicKey, SystemProgram, Transaction,
   TransactionInstruction, TransactionSignature
 } from '@solana/web3.js';
 
@@ -294,16 +294,20 @@ export async function getFilteredProgramAccounts(
   if (resp.error) {
     throw new Error(resp.error.message)
   }
-  // @ts-ignore
-  return resp.result.map(({ pubkey, account: { data, executable, owner, lamports } }) => ({
-    publicKey: new PublicKey(pubkey),
-    accountInfo: {
-      data: Buffer.from(data[0], 'base64'),
-      executable,
-      owner: new PublicKey(owner),
-      lamports
-    }
-  }))
+  if (resp && resp.result) {
+    // @ts-ignore
+    return resp.result.map(({ pubkey, account: { data, executable, owner, lamports } }) => ({
+      publicKey: new PublicKey(pubkey),
+      accountInfo: {
+        data: Buffer.from(data[0], 'base64'),
+        executable,
+        owner: new PublicKey(owner),
+        lamports
+      }
+    }))
+  }
+
+  return [];
 }
 
 export async function getFilteredProgramAccountsAmmOrMarketCache(
@@ -321,16 +325,20 @@ export async function getFilteredProgramAccountsAmmOrMarketCache(
     if (resp.error) {
       throw new Error(resp.error.message)
     }
-    // @ts-ignore
-    return resp.result.map(({ pubkey, account: { data, executable, owner, lamports } }) => ({
-      publicKey: new PublicKey(pubkey),
-      accountInfo: {
-        data: Buffer.from(data[0], 'base64'),
-        executable,
-        owner: new PublicKey(owner),
-        lamports
-      }
-    }))
+    if (resp && resp.result) {
+      // @ts-ignore
+      return resp.result.map(({ pubkey, account: { data, executable, owner, lamports } }) => ({
+        publicKey: new PublicKey(pubkey),
+        accountInfo: {
+          data: Buffer.from(data[0], 'base64'),
+          executable,
+          owner: new PublicKey(owner),
+          lamports
+        }
+      }))
+    } else {
+      return [];
+    }
   } catch (e) {
     return getFilteredProgramAccounts(connection, programId, filters)
   }
