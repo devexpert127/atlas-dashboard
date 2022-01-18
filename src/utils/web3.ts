@@ -291,6 +291,7 @@ export async function getFilteredProgramAccounts(
       encoding: 'base64'
     }
   ])
+  debugger;
   if (resp.error) {
     throw new Error(resp.error.message)
   }

@@ -211,45 +211,46 @@ export const getStakeAccounts = async (conn: Connection, wallet: any) => {
 }
 
 async function stakeProgramIdAccount(stakeAccounts: any, conn: any, stakeFilters: any) {
-  // const stakeAccountInfos = await getFilteredProgramAccounts(conn, new PublicKey(STAKE_PROGRAM_ID), stakeFilters)
-  // stakeAccountInfos.forEach((stakeAccountInfo) => {
-  //   const stakeAccountAddress = stakeAccountInfo.publicKey.toBase58()
-  //   const { data } = stakeAccountInfo.accountInfo
+  debugger;
+  const stakeAccountInfos = await getFilteredProgramAccounts(conn, new PublicKey(STAKE_PROGRAM_ID), stakeFilters)
+  stakeAccountInfos.forEach((stakeAccountInfo) => {
+    const stakeAccountAddress = stakeAccountInfo.publicKey.toBase58()
+    const { data } = stakeAccountInfo.accountInfo
 
-  //   const userStakeInfo = struct([
-  //     u64('state'),
-  //     publicKey('poolId'),
-  //     publicKey('stakerOwner'),
-  //     u64('depositBalance'),
-  //     u64('rewardDebt')
-  //   ]).decode(data)
+    const userStakeInfo = struct([
+      u64('state'),
+      publicKey('poolId'),
+      publicKey('stakerOwner'),
+      u64('depositBalance'),
+      u64('rewardDebt')
+    ]).decode(data)
 
-  //   const poolId = userStakeInfo.poolId.toBase58()
+    const poolId = userStakeInfo.poolId.toBase58()
 
-  //   const rewardDebt = getBigNumber(userStakeInfo.rewardDebt)
+    const rewardDebt = getBigNumber(userStakeInfo.rewardDebt)
 
-  //   const farm = getFarmByPoolId(poolId)
+    const farm = getFarmByPoolId(poolId)
 
-  //   if (farm) {
-  //     const depositBalance = new TokenAmount(getBigNumber(userStakeInfo.depositBalance), farm.lp.decimals)
+    if (farm) {
+      const depositBalance = new TokenAmount(getBigNumber(userStakeInfo.depositBalance), farm.lp.decimals)
 
-  //     if (Object.prototype.hasOwnProperty.call(stakeAccounts, poolId)) {
-  //       if (lt(getBigNumber(stakeAccounts[poolId].depositBalance.wei), getBigNumber(depositBalance.wei))) {
-  //         stakeAccounts[poolId] = {
-  //           depositBalance,
-  //           rewardDebt: new TokenAmount(rewardDebt, farm.reward.decimals),
-  //           stakeAccountAddress
-  //         }
-  //       }
-  //     } else {
-  //       stakeAccounts[poolId] = {
-  //         depositBalance,
-  //         rewardDebt: new TokenAmount(rewardDebt, farm.reward.decimals),
-  //         stakeAccountAddress
-  //       }
-  //     }
-  //   }
-  // })
+      if (Object.prototype.hasOwnProperty.call(stakeAccounts, poolId)) {
+        if (lt(getBigNumber(stakeAccounts[poolId].depositBalance.wei), getBigNumber(depositBalance.wei))) {
+          stakeAccounts[poolId] = {
+            depositBalance,
+            rewardDebt: new TokenAmount(rewardDebt, farm.reward.decimals),
+            stakeAccountAddress
+          }
+        }
+      } else {
+        stakeAccounts[poolId] = {
+          depositBalance,
+          rewardDebt: new TokenAmount(rewardDebt, farm.reward.decimals),
+          stakeAccountAddress
+        }
+      }
+    }
+  })
 }
 
 // async function stakeProgramIdAccountV4(programId: string, stakeAccounts: any, conn: any, stakeFilters: any) {
